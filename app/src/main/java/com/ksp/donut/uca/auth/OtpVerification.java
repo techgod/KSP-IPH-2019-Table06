@@ -87,6 +87,7 @@ public class OtpVerification extends Fragment implements View.OnClickListener,On
 
             FirebaseUser user = task.getResult().getUser();
             startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().finish();
 
             // ...
         } else {
