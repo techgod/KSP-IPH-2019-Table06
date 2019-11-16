@@ -6,12 +6,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,6 +36,7 @@ import static com.ksp.donut.uca.auth.Signup.mVerificationId;
 public class OtpVerification extends Fragment implements View.OnClickListener,OnCompleteListener<AuthResult> {
 
     private FirebaseAuth mAuth;
+    private FirestoreHandler firestoreHandler;
     private EditText editText;
 
     public OtpVerification() {
@@ -50,6 +53,7 @@ public class OtpVerification extends Fragment implements View.OnClickListener,On
 
         mAuth = FirebaseAuth.getInstance();
         editText = view.findViewById(R.id.enter_otp);
+        firestoreHandler = new FirestoreHandler(getContext());
         view.findViewById(R.id.confirm).setOnClickListener(this);
 
         return view;
@@ -86,8 +90,21 @@ public class OtpVerification extends Fragment implements View.OnClickListener,On
             Log.d(TAG, "signInWithCredential:success");
 
             FirebaseUser user = task.getResult().getUser();
-            startActivity(new Intent(getActivity(), MainActivity.class));
-            getActivity().finish();
+
+
+           /* if(user. == null){ //new user
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.login,new UserDetails())
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .commit();
+
+            }else{*/
+                startActivity(new Intent(getActivity(), MainActivity.class));
+                getActivity().finish();
+           // }
+
 
             // ...
         } else {
@@ -95,6 +112,7 @@ public class OtpVerification extends Fragment implements View.OnClickListener,On
             Log.w(TAG, "signInWithCredential:failure", task.getException());
             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                 // The verification code entered was invalid
+                Toast.makeText(getContext(), "Invalid otp. Please try again", Toast.LENGTH_SHORT).show();
             }
         }
 

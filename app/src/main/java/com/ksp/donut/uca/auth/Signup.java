@@ -73,7 +73,7 @@ public class Signup extends Fragment implements View.OnClickListener {
 
         Fragment fragment = new OtpVerification();
 
-        String number = editText.getText().toString();
+        String number = "+91" + editText.getText().toString();
 
         if(!regex(number)){
             Toast.makeText(getContext(), "Not a valid number. Please try again", Toast.LENGTH_SHORT).show();
@@ -143,7 +143,7 @@ public class Signup extends Fragment implements View.OnClickListener {
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
 
-        Log.i("signIn","ss");
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -195,8 +195,8 @@ public class Signup extends Fragment implements View.OnClickListener {
     private boolean regex(String number) {
 
         //String num = number.split("");
-        if(number.length() == 10 ) return true;
-        return true;
+        if(number.length() == 13 ) return true;
+        return false;
     }
 
 }
