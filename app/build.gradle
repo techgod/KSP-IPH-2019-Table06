@@ -47,4 +47,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
 
+
+    implementation 'com.scottyab:aescrypt:0.0.1'
+
 }

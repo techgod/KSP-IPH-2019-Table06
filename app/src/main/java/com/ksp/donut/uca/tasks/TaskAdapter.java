@@ -14,7 +14,7 @@ import com.ksp.donut.uca.R;
 import java.util.List;
 
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.DMViewHolder> {
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
     private static final String TAG = TaskAdapter.class.getSimpleName() + "Logs";
 
@@ -37,16 +37,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.DMViewHolder> 
 
     @NonNull
     @Override
-    public DMViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View mItemView = mInflater.inflate(R.layout.dm_rv, parent, false);
-        return new DMViewHolder(mItemView);
+    public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View mItemView = mInflater.inflate(R.layout.task_rv, parent, false);
+
+        return new TaskViewHolder(mItemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final DMViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final TaskViewHolder holder, final int position) {
         if (mDMCards != null) {
             final TaskDetails current = mDMCards.get(position);
-            holder.senderName.setText(current.getSender());
+            holder.taskName.setText(current.getTaskName());
+            holder.deadLine.setText(current.getTaskDeadline());
 
         }
     }
@@ -56,12 +58,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.DMViewHolder> 
         return mDMCards == null ? 0 : mDMCards.size();
     }
 
-    class DMViewHolder extends RecyclerView.ViewHolder {
-        final TextView senderName;
+    class TaskViewHolder extends RecyclerView.ViewHolder {
+        final TextView taskName;
+        final TextView deadLine;
 
-        DMViewHolder(View itemView) {
+        TaskViewHolder(View itemView) {
             super(itemView);
-            senderName = itemView.findViewById(R.id.dm_rv_sendername);
+            taskName = itemView.findViewById(R.id.task_name_rv);
+            deadLine = itemView.findViewById(R.id.task_deadline_rv);
         }
 
     }

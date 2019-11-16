@@ -30,4 +30,9 @@
         android:name="com.ksp.donut.uca.contact.SelectContact"
         android:label="fragment_select_contact"
         tools:layout="@layout/fragment_select_contact" />
+    <fragment
+        android:id="@+id/nav_add_tasks"
+        android:name="com.ksp.donut.uca.tasks.AddTasks"
+        android:label="fragment_add_tasks"
+        tools:layout="@layout/fragment_add_tasks" />
 </navigation>
