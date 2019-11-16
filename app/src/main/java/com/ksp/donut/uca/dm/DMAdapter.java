@@ -1,6 +1,7 @@
 package com.ksp.donut.uca.dm;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,12 +49,15 @@ public class DMAdapter extends RecyclerView.Adapter<DMAdapter.DMViewHolder> {
     public void onBindViewHolder(@NonNull final DMViewHolder holder, final int position) {
         if (mDMCards != null) {
             final DMDetails current = mDMCards.get(position);
-            holder.senderName.setText(current.getSender());
+            holder.senderName.setText(current.getNumber());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     NavController navController = Navigation.findNavController(v);
-                    navController.navigate(R.id.nav_chat);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("no",current.getNumber());
+                    bundle.putString("name",current.getName());
+                    navController.navigate(R.id.nav_chat,bundle);
                 }
             });
         }

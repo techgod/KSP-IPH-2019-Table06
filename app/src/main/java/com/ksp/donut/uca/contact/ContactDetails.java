@@ -1,6 +1,6 @@
-package com.ksp.donut.uca.dm;
+package com.ksp.donut.uca.contact;
 
-public class DMDetails {
+public class ContactDetails {
 
 
     public String getNumber() {

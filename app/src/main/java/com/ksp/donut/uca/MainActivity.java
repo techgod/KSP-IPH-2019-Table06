@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         mNavController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                if(destination.getId()==R.id.nav_chat)
+                if(destination.getId()==R.id.nav_chat || destination.getId()==R.id.nav_contact)
                 {
                     tabLayout.setVisibility(View.GONE);
                 }
