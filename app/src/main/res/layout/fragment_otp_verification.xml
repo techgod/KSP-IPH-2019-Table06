@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".auth.OtpVerification">
+
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+
+       <TextView
+           android:id="@+id/textView3"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/otp"
+           android:textSize="@dimen/dimen_20_sp"
+           android:textStyle="bold"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent" />
+
+       <EditText
+           android:id="@+id/enter_otp"
+           android:layout_width="141dp"
+           android:layout_height="39dp"
+           android:ems="10"
+           android:inputType="phone"
+           android:paddingTop="10dp"
+           app:layout_constraintEnd_toEndOf="@+id/textView3"
+           app:layout_constraintStart_toStartOf="@+id/textView3"
+           app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+       <Button
+           android:id="@+id/confirm"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="96dp"
+           android:text="Confirm"
+           app:layout_constraintEnd_toEndOf="@+id/enter_otp"
+           app:layout_constraintHorizontal_bias="0.49"
+           app:layout_constraintStart_toStartOf="@+id/enter_otp"
+           app:layout_constraintTop_toBottomOf="@+id/enter_otp" />
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

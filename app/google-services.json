@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "950368726461",
+    "firebase_url": "https://policeapp-ff2c6.firebaseio.com",
+    "project_id": "policeapp-ff2c6",
+    "storage_bucket": "policeapp-ff2c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950368726461:android:13ea39e30a30f5612fb6d4",
+        "android_client_info": {
+          "package_name": "com.ksp.donut.uca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950368726461-mm4khhl2crn904sjguk921t7enarmum2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ksp.donut.uca",
+            "certificate_hash": "e52e6c300368596353e63cb3e39d764b6297c6c9"
+          }
+        },
+        {
+          "client_id": "950368726461-5m93u14rfn9d4til5vo8j0lvvitgm3ai.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ksp.donut.uca",
+            "certificate_hash": "0c8fb83c53f27c4f5e48ec1464cc5d3b2c40a8a1"
+          }
+        },
+        {
+          "client_id": "950368726461-sldtob31tl0rkl76oog5omtd1rqrc82n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMSirlwRnA5mh82LnbCrxg9gmL_uN9BcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950368726461-sldtob31tl0rkl76oog5omtd1rqrc82n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
