@@ -2,51 +2,31 @@ package com.ksp.donut.uca.tasks;
 
 public class TaskDetails {
 
-    public String getMessage() {
-        return message;
+   private String taskName;
+   private String taskDeadline;
+   private String assignedBy;
+
+    public String getTaskName() {
+        return taskName;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 
-    public String getTime() {
-        return time;
+    public String getTaskDeadline() {
+        return taskDeadline;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTaskDeadline(String taskDeadline) {
+        this.taskDeadline = taskDeadline;
     }
 
-    public String getSender() {
-        return sender;
+    public String getAssignedBy() {
+        return assignedBy;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setAssignedBy(String assignedBy) {
+        this.assignedBy = assignedBy;
     }
-
-    public String getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
-    }
-
-    public String getRead_receipt() {
-        return read_receipt;
-    }
-
-    public void setRead_receipt(String read_receipt) {
-        this.read_receipt = read_receipt;
-    }
-
-    private String message;
-    private String time;
-    private String sender;
-    private String receiver;
-    private String read_receipt;
-
-
 }

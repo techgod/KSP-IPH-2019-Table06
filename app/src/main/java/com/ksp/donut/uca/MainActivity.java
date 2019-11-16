@@ -12,6 +12,7 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.tabs.TabLayout;
+import com.scottyab.aescrypt.AESCrypt;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
         TabLayout tabLayout = findViewById(R.id.tabs);
         mNavController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
