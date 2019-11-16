@@ -1,4 +1,4 @@
-package com.ksp.donut.uca.dm;
+package com.ksp.donut.uca.tasks;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ksp.donut.uca.R;
@@ -16,22 +14,22 @@ import com.ksp.donut.uca.R;
 import java.util.List;
 
 
-public class DMAdapter extends RecyclerView.Adapter<DMAdapter.DMViewHolder> {
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.DMViewHolder> {
 
-    private static final String TAG = DMAdapter.class.getSimpleName() + "Logs";
+    private static final String TAG = TaskAdapter.class.getSimpleName() + "Logs";
 
     private LayoutInflater mInflater;
     private Context mContext;
 
-    private List<DMDetails> mDMCards;
+    private List<TaskDetails> mDMCards;
 
-    DMAdapter(Context ct, List<DMDetails> dmCards) {
+    TaskAdapter(Context ct, List<TaskDetails> dmCards) {
         mContext = ct;
         mInflater = LayoutInflater.from(ct);
         mDMCards = dmCards;
     }
 
-    void setCards(List<DMDetails> eventCards)
+    void setCards(List<TaskDetails> eventCards)
     {
         mDMCards = eventCards;
         notifyDataSetChanged();
@@ -47,15 +45,9 @@ public class DMAdapter extends RecyclerView.Adapter<DMAdapter.DMViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final DMViewHolder holder, final int position) {
         if (mDMCards != null) {
-            final DMDetails current = mDMCards.get(position);
+            final TaskDetails current = mDMCards.get(position);
             holder.senderName.setText(current.getSender());
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    NavController navController = Navigation.findNavController(v);
-                    navController.navigate(R.id.nav_chat);
-                }
-            });
+
         }
     }
 

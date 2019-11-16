@@ -1,38 +1,65 @@
 package com.ksp.donut.uca;
 
+import android.os.Build;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
-import com.ksp.donut.uca.ui.main.SectionsPagerAdapter;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.Navigation;
+
+import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
+
+    NavController mNavController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        mNavController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                if(destination.getId()==R.id.nav_chat)
+                {
+                    tabLayout.setVisibility(View.GONE);
+                }
+                else
+                {
+                    tabLayout.setVisibility(View.VISIBLE);
+                }
+            }
+
+        });
+
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        mNavController.navigate(R.id.nav_task);
+                        break;
+                    case 1:
+                        mNavController.navigate(R.id.nav_dm);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
     }

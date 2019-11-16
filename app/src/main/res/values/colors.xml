@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">@color/ksp_blue</color>
+    <color name="colorPrimaryDark">@color/ksp_blue</color>
+    <color name="colorAccent">@color/ksp_yellow</color>
+    <color name="ksp_blue">#1F0749</color>
+    <color name="ksp_yellow">#D7AA3A</color>
+    <color name="trans">#00FFFFFF</color>
 </resources>

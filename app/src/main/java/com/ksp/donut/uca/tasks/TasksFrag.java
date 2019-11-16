@@ -1,4 +1,4 @@
-package com.ksp.donut.uca.dm;
+package com.ksp.donut.uca.tasks;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -23,20 +23,20 @@ import com.ksp.donut.uca.R;
 
 import java.util.ArrayList;
 
-public class DirectMessage extends Fragment {
+public class TasksFrag extends Fragment {
     FirebaseFirestore mDb;
-    public String TAG = DirectMessage.class.getSimpleName();
+    public String TAG = TasksFrag.class.getSimpleName();
 
-    private ArrayList<DMDetails> upcoming;
-    DMAdapter mAdapter;
+    private ArrayList<TaskDetails> upcoming;
+    TaskAdapter mAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.direct_message_layout, container, false);
+        return inflater.inflate(R.layout.task_layout, container, false);
     }
 
-    @Override
+   /* @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -45,7 +45,7 @@ public class DirectMessage extends Fragment {
         final RecyclerView upcoming_rv = view.findViewById(R.id.dm_rv);
         upcoming_rv.setLayoutManager(new LinearLayoutManager(getContext()));
         upcoming = new ArrayList<>();
-        mAdapter = new DMAdapter(getActivity(), upcoming);
+        mAdapter = new TaskAdapter(getActivity(), upcoming);
         upcoming_rv.setAdapter(mAdapter);
 
         mDb.collection("chats")
@@ -61,7 +61,7 @@ public class DirectMessage extends Fragment {
                                 setData(document);
                             }
                             mAdapter.setCards(upcoming);
-                            Toast.makeText(getContext(), "Retrieved Chats!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Got chats", Toast.LENGTH_LONG).show();
                         } else {
                             Log.d(TAG, "Error getting events.", task.getException());
                             Toast.makeText(getContext(), "Couldn't update events list. Please try again later.", Toast.LENGTH_LONG).show();
@@ -72,9 +72,9 @@ public class DirectMessage extends Fragment {
     }
 
     private void setData(QueryDocumentSnapshot document) {
-        DMDetails dm = new DMDetails();
+        TaskDetails dm = new TaskDetails();
         dm.setSender(document.getString("sender"));
         upcoming.add(dm);
     }
-
+*/
 }
