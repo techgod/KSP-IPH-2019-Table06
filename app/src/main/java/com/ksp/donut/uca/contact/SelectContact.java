@@ -59,7 +59,13 @@ public class SelectContact extends Fragment {
         final RecyclerView upcoming_rv = view.findViewById(R.id.contact_rv);
         upcoming_rv.setLayoutManager(new LinearLayoutManager(getContext()));
         upcoming = new ArrayList<>();
-        mAdapter = new ContactAdapter(getActivity(), upcoming);
+        boolean fromadd=false;
+
+        if(getArguments()!=null && getArguments().getBoolean("from_add"))
+        {
+            fromadd=true;
+        }
+        mAdapter = new ContactAdapter(getActivity(), upcoming,fromadd);
         upcoming_rv.setAdapter(mAdapter);
 
         mDb.collection("personnel")

@@ -9,10 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavHostController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,6 +45,7 @@ public class AddTasks extends Fragment implements View.OnClickListener {
     private TextView displayDeadline;
     private Calendar myCalendar ;
     private FirebaseFirestore mDb;
+    private String peer_no,peer_name;
 
 
     public AddTasks() {
@@ -51,7 +57,6 @@ public class AddTasks extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         view.findViewById(R.id.set_deadline).setOnClickListener(this);
         view.findViewById(R.id.save_tasks).setOnClickListener(this);
         view.findViewById(R.id.phone_book).setOnClickListener(this);
@@ -59,6 +64,20 @@ public class AddTasks extends Fragment implements View.OnClickListener {
         displayDeadline = view.findViewById(R.id.display_time);
 
         myCalendar = Calendar.getInstance();
+
+
+        if (getArguments() != null) {
+            Log.d(TAG, "arguments" + getArguments().getString("no"));
+            peer_no = getArguments().getString("no");
+            peer_name = getArguments().getString("name");
+
+            TextView tv = view.findViewById(R.id.task_assigned_view);
+            tv.setText(peer_name);
+
+        }
+
+
+
 
 
     }
@@ -103,16 +122,23 @@ public class AddTasks extends Fragment implements View.OnClickListener {
 
     public void saveTask(){
 
-        Map<String, Object> tasks = new HashMap<>();
-        tasks.put("taskName", taskName.getText().toString());
-        tasks.put("deadLine", displayDeadline.getText().toString());
-        tasks.put("assignedTo", "MrA,MrB,MrC");
+        if(taskName.getText().toString() == "" || peer_no == null ){
+            Toast.makeText(getContext(), "Please fill all the fields", Toast.LENGTH_SHORT).show();
+        }else {
 
-        // Add a new document with a generated ID
-        mDb.collection("myTasks")
-                .add(tasks)
-                .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
-                .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
+            Map<String, Object> tasks = new HashMap<>();
+            tasks.put("taskName", taskName.getText().toString());
+            tasks.put("deadLine", displayDeadline.getText().toString());
+            tasks.put("assignedToNo", peer_no);
+            tasks.put("assignedToName",peer_name);
+
+            // Add a new document with a generated ID
+            mDb.collection("myTasks")
+                    .add(tasks)
+                    .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
+                    .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
+        }
+
     }
 
     public void setDeadline(){
@@ -132,7 +158,10 @@ public class AddTasks extends Fragment implements View.OnClickListener {
     }
 
     public void loadContacts(){
-
+        NavController navController = NavHostFragment.findNavController(this);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("from_add",true);
+        navController.navigate(R.id.nav_contact,bundle);
         //show contacts screen
     }
 }

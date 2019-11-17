@@ -23,13 +23,15 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     private LayoutInflater mInflater;
     private Context mContext;
+    private boolean fromAdd;
 
     private List<ContactDetails> mContactCards;
 
-    ContactAdapter(Context ct, List<ContactDetails> dmCards) {
+    ContactAdapter(Context ct, List<ContactDetails> dmCards,boolean fromadd) {
         mContext = ct;
         mInflater = LayoutInflater.from(ct);
         mContactCards = dmCards;
+        fromAdd=fromadd;
     }
 
     void setCards(List<ContactDetails> eventCards)
@@ -59,7 +61,15 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
                     Bundle bundle = new Bundle();
                     bundle.putString("no",current.getNumber());
                     bundle.putString("name",current.getName());
-                    navController.navigate(R.id.nav_chat,bundle);
+                    if(fromAdd) {
+                        navController.navigate(R.id.nav_add_tasks, bundle);
+                    }
+                    else
+                    {
+                        navController.navigate(R.id.nav_chat, bundle);
+                    }
+
+
                 }
             });
         }
