@@ -23,6 +23,10 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 import com.ksp.donut.uca.MainActivity;
 import com.ksp.donut.uca.R;
 
@@ -38,6 +42,7 @@ public class OtpVerification extends Fragment implements View.OnClickListener,On
     private FirebaseAuth mAuth;
     private FirestoreHandler firestoreHandler;
     private EditText editText;
+    private FirebaseFirestore mDb;
 
     public OtpVerification() {
         // Required empty public constructor
@@ -54,6 +59,7 @@ public class OtpVerification extends Fragment implements View.OnClickListener,On
         mAuth = FirebaseAuth.getInstance();
         editText = view.findViewById(R.id.enter_otp);
         firestoreHandler = new FirestoreHandler(getContext());
+        mDb = FirebaseFirestore.getInstance();
         view.findViewById(R.id.confirm).setOnClickListener(this);
 
         return view;
@@ -101,6 +107,8 @@ public class OtpVerification extends Fragment implements View.OnClickListener,On
                         .commit();
 
             }else{*/
+           //verifyTypeOfUser(user.getPhoneNumber());
+
                 startActivity(new Intent(getActivity(), MainActivity.class));
                 getActivity().finish();
            // }
@@ -115,6 +123,12 @@ public class OtpVerification extends Fragment implements View.OnClickListener,On
                 Toast.makeText(getContext(), "Invalid otp. Please try again", Toast.LENGTH_SHORT).show();
             }
         }
+
+    }
+
+    private void verifyTypeOfUser(String phoneNumber) {
+
+
 
     }
 }

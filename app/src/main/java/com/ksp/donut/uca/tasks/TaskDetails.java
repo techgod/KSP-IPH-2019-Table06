@@ -4,7 +4,8 @@ public class TaskDetails {
 
    private String taskName;
    private String taskDeadline;
-   private String assignedBy;
+   private String assignedToNo;
+   private String assignedToName;
 
     public String getTaskName() {
         return taskName;
@@ -22,11 +23,19 @@ public class TaskDetails {
         this.taskDeadline = taskDeadline;
     }
 
-    public String getAssignedBy() {
-        return assignedBy;
+    public String getAssignedToNo() {
+        return assignedToNo;
     }
 
-    public void setAssignedBy(String assignedBy) {
-        this.assignedBy = assignedBy;
+    public void setAssignedToNo(String assignedBy) {
+        this.assignedToNo = assignedBy;
+    }
+
+    public String getAssignedToName() {
+        return assignedToName;
+    }
+
+    public void setAssignedToName(String assignedToName) {
+        this.assignedToName = assignedToName;
     }
 }

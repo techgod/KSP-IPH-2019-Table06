@@ -96,12 +96,9 @@ public class FirestoreHandler {
         db.collection("tasks")
                 .document(docId)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            fieldValue = (String) task.getResult().get(key);
-                        }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        fieldValue = (String) task.getResult().get(key);
                     }
                 });
 

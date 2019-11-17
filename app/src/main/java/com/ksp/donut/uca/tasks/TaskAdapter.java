@@ -20,13 +20,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     private LayoutInflater mInflater;
     private Context mContext;
+    private boolean isUserSP;
 
     private List<TaskDetails> mDMCards;
 
-    TaskAdapter(Context ct, List<TaskDetails> dmCards) {
+    TaskAdapter(Context ct, List<TaskDetails> tasksList,boolean isUserSP) {
         mContext = ct;
         mInflater = LayoutInflater.from(ct);
-        mDMCards = dmCards;
+        mDMCards = tasksList;
+        this.isUserSP = isUserSP;
     }
 
     void setCards(List<TaskDetails> eventCards)
@@ -38,7 +40,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View mItemView = mInflater.inflate(R.layout.task_rv, parent, false);
+
+        View mItemView;
+        if(isUserSP)
+             mItemView = mInflater.inflate(R.layout.task_rv_sp, parent, false);
+        else
+             mItemView = mInflater.inflate(R.layout.task_rv, parent, false);
 
         return new TaskViewHolder(mItemView);
     }
@@ -47,8 +54,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public void onBindViewHolder(@NonNull final TaskViewHolder holder, final int position) {
         if (mDMCards != null) {
             final TaskDetails current = mDMCards.get(position);
+
             holder.taskName.setText(current.getTaskName());
             holder.deadLine.setText(current.getTaskDeadline());
+
+            if(isUserSP){
+
+                holder.assignedTask.setText("Assigned task to : " + current.getAssignedToName());
+            }
+
 
         }
     }
@@ -59,13 +73,20 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     }
 
     class TaskViewHolder extends RecyclerView.ViewHolder {
-        final TextView taskName;
-        final TextView deadLine;
+        TextView taskName;
+        TextView deadLine;
+        TextView assignedTask;
+
 
         TaskViewHolder(View itemView) {
             super(itemView);
             taskName = itemView.findViewById(R.id.task_name_rv);
             deadLine = itemView.findViewById(R.id.task_deadline_rv);
+
+            if(isUserSP){
+                assignedTask = itemView.findViewById(R.id.assigned_to_rv);
+            }
+
         }
 
     }
