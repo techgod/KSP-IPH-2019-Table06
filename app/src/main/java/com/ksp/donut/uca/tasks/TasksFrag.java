@@ -68,7 +68,6 @@ public class TasksFrag extends Fragment implements View.OnClickListener{
                             setData(document);
                         }
                         mAdapter.setCards(myTasks);
-                        Toast.makeText(getContext(), "Got chats", Toast.LENGTH_LONG).show();
                     } else {
                         dueTextView.setVisibility(View.VISIBLE);
                         Log.d(TAG, "Error getting events.", task.getException());

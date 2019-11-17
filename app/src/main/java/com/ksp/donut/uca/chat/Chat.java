@@ -6,30 +6,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.ksp.donut.uca.R;
+import com.ksp.donut.uca.dm.DMDetails;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Chat extends Fragment {
     FirebaseFirestore mDb;
     public String TAG = Chat.class.getSimpleName();
-    private String sender_no = "9845359774";
-    private String sender_name = "Yash";
-    private String receiver_no;
-    private String receiver_name;
+    private String peer_no;
+    private String peer_name;
 
 
     private ArrayList<ChatDetails> upcoming;
@@ -41,23 +50,78 @@ public class Chat extends Fragment {
         return inflater.inflate(R.layout.chat_layout, container, false);
     }
 
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        MessagesListAdapter<Message> adapter = new MessagesListAdapter<>(sender_no, null);
-        MessagesList messagesList = view.findViewById(R.id.messagesList);
-        messagesList.setAdapter(adapter);
+
+        String my_no = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber().substring(3);
+        String my_name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
+
+        MessagesListAdapter<Message> adapter1 = new MessagesListAdapter<>(my_no, null);
+        MessagesList messages = view.findViewById(R.id.messagesList);
+        messages.setAdapter(adapter1);
 
         mDb = FirebaseFirestore.getInstance();
         if (getArguments() != null) {
             Log.d(TAG, "arguments" + getArguments().getString("no"));
-            receiver_no = getArguments().getString("no");
-            receiver_name = getArguments().getString("name");
+            peer_no = getArguments().getString("no");
+            peer_name = getArguments().getString("name");
         }
 
         EditText editText = view.findViewById(R.id.chat_text);
 
-        String dpath = sender_no.compareTo(receiver_no) >= 0 ? sender_no + "_" + receiver_no : receiver_no + "_" + sender_no;
+        String dpath = my_no.compareTo(peer_no) >= 0 ? my_no + "_" + peer_no : peer_no + "_" + my_no;
+
+        mDb.collection("chats").document(dpath)
+                .collection("messages")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful() && task.getResult() != null && task.getResult().size() > 0) {
+                            Log.d(TAG, "Got from online db, with size: " + task.getResult().size());
+                            adapter1.clear();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Author author = new Author(String.valueOf(document.getData().get("sender")), String.valueOf(document.get("sender")), null);
+                                adapter1.addToStart(new Message("456", String.valueOf(document.getData().get("msg")), author, new Date()), false);
+                            }
+                        }
+                    }
+                });
+
+        mDb.collection("chats").document(dpath).collection("messages")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshots,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w(TAG, "listen:error", e);
+                            return;
+                        }
+
+                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                            switch (dc.getType()) {
+                                case ADDED:
+                                    Log.d(TAG, "New city: " + dc.getDocument().getData());
+                                    Author author = new Author(String.valueOf(dc.getDocument().getData().get("sender")), String.valueOf(dc.getDocument().get("sender")), null);
+                                    adapter1.addToStart(new Message("456", String.valueOf(dc.getDocument().getData().get("msg")), author, new Date()), true);
+                                    break;
+                                case MODIFIED:
+                                    Log.d(TAG, "Modified city: " + dc.getDocument().getData());
+                                    break;
+                                case REMOVED:
+                                    Log.d(TAG, "Removed city: " + dc.getDocument().getData());
+                                    break;
+                            }
+                            break;
+                        }
+
+                    }
+                });
+
         view.findViewById(R.id.chat_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,12 +130,13 @@ public class Chat extends Fragment {
                 chat.put("msg", editText.getText().toString());
                 chat.put("timestamp", new Date());
                 chat.put("read", false);
+                chat.put("sender", my_no);
+                chat.put("receiver",peer_no);
 
                 Map<String, Object> array_map = new HashMap<>();
                 ArrayList<String> arrayList = new ArrayList<String>();
-                arrayList.add(sender_no);
-                arrayList.add(receiver_no);
-
+                arrayList.add(my_no);
+                arrayList.add(peer_no);
                 array_map.put("numbers", arrayList);
 
 
@@ -96,10 +161,11 @@ public class Chat extends Fragment {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.d(TAG, "DocumentSnapshot successfully written!");
-                                Author author = new Author(sender_no, sender_name, null);
-                                adapter.addToStart(new Message("456", editText.getText().toString(), author, new Date()), false);
                                 editText.setText("");
                                 editText.clearFocus();
+                                /*Author author = new Author(my_no, my_name, null);
+                                adapter1.addToStart(new Message("456", editText.getText().toString(), author, new Date()), false);
+                                */
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -108,8 +174,10 @@ public class Chat extends Fragment {
                                 Log.w(TAG, "Error writing document", e);
                             }
                         });
+
             }
         });
     }
+
 
 }

@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 public class DirectMessage extends Fragment {
     FirebaseFirestore mDb;
     public String TAG = DirectMessage.class.getSimpleName();
-    private String myNumber="9845359774";
+    private String myNumber;
 
     private ArrayList<DMDetails> upcoming;
     DMAdapter mAdapter;
@@ -48,6 +49,8 @@ public class DirectMessage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mDb = FirebaseFirestore.getInstance();
+        myNumber = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber().substring(3);
+
 
         FloatingActionButton new_chat = view.findViewById(R.id.dm_fab);
         new_chat.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +82,6 @@ public class DirectMessage extends Fragment {
                                 setData(document);
                             }
                             mAdapter.setCards(upcoming);
-                            Toast.makeText(getContext(), "Retrieved Chats!", Toast.LENGTH_LONG).show();
                         } else if(task.getResult().size()==0){
                             no_convo.setVisibility(View.VISIBLE);
 

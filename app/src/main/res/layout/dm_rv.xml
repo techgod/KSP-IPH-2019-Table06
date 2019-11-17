@@ -20,14 +20,15 @@
         android:id="@+id/dm_rv_sendername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
         android:text="Sender Name"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/dm_rv_pp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/dm_rv_pp"
+        app:layout_constraintBottom_toBottomOf="@id/dm_rv_pp"/>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/dm_rv_msg"
         app:layout_constraintTop_toBottomOf="@id/dm_rv_sendername"
         app:layout_constraintStart_toStartOf="@id/dm_rv_sendername"
@@ -39,7 +40,7 @@
         android:text="🚫 message has been removed from device"/>
 
     <View
-        app:layout_constraintTop_toBottomOf="@id/dm_rv_msg"
+        app:layout_constraintTop_toBottomOf="@id/dm_rv_pp"
         android:layout_width="match_parent"
         android:layout_marginTop="16dp"
         android:layout_height="1dp"
