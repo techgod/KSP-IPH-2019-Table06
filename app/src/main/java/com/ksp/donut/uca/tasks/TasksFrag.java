@@ -68,7 +68,7 @@ public class TasksFrag extends Fragment implements View.OnClickListener{
                         for(QueryDocumentSnapshot document : task.getResult()){
                             if(document.get("position").equals("SP")){
                                 isUserSp = true;
-                                Toast.makeText(getContext(), "SP is logged in", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getContext(), "SP is logged in", Toast.LENGTH_SHORT).show();
                                 Log.i("asf","SP is logged in");
 
 
