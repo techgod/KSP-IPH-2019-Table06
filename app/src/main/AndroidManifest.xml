@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".auth.LoginActivity"
-            android:theme="@style/AppTheme.Login">
+            android:windowSoftInputMode="adjustPan|adjustResize"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

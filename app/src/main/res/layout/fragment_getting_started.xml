@@ -21,6 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            style="@style/TextAppearance.MaterialComponents.Body1"
             android:id="@+id/textView"
             android:layout_width="313dp"
             android:layout_height="49dp"
@@ -34,14 +35,17 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/getStarted"
-            android:background="@drawable/rounded_shape"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="153dp"
             android:layout_height="45dp"
             android:layout_marginBottom="44dp"
+            android:backgroundTint="@color/colorAccent"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:text="@string/get_started"
-            android:textSize="@dimen/dimen_20_sp"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
