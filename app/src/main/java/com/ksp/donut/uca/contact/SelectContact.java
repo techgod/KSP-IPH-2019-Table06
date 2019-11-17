@@ -74,7 +74,6 @@ public class SelectContact extends Fragment {
                                 setData(document);
                             }
                             mAdapter.setCards(upcoming);
-                            Toast.makeText(getContext(), "Retrieved Contacts!", Toast.LENGTH_LONG).show();
                         } else if(task.getResult().size()==0){
                         }
                         else
@@ -90,7 +89,7 @@ public class SelectContact extends Fragment {
     private void setData(QueryDocumentSnapshot document) {
         ContactDetails cm = new ContactDetails();
         cm.setName(document.getString("name"));
-        cm.setNumber(document.get("mobile_number").toString());
+        cm.setNumber(document.getString("mobile_number"));
         upcoming.add(cm);
     }
 }
