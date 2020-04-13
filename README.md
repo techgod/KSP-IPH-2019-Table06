@@ -1,4 +1,4 @@
-# Prototype : Unified Communications Application for Karnataka State Police
+### Unified Communications Application for Karnataka State Police
 The main goal of the idea was to build an end-product to facilitate police officers to share their thoughts to one another. 
 Along with this, communication among the police officers for formal purposes along with assignment of day-to-day functionalities of every officer, by higher authorities to their subordinates. 
 The end product should be able to be intertwined with the official databases and be scaled for practical use. 
