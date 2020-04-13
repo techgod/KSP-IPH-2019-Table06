@@ -1,5 +1,4 @@
-## KSP-IPH-2019-Table06
-# Unified Communications Application
+# Prototype : Unified Communications Application for Karnataka State Police
 The main goal of the idea was to build an end-product to facilitate police officers to share their thoughts to one another. 
 Along with this, communication among the police officers for formal purposes along with assignment of day-to-day functionalities of every officer, by higher authorities to their subordinates. 
 The end product should be able to be intertwined with the official databases and be scaled for practical use. 
@@ -9,11 +8,11 @@ Along with this measure, an option should be provided so that the data to be tra
 Apart from the security concerns, it is to be made sure to grant special privileges based on the position of an officer in the hierarchy. It was also to be made sure that only a higher authority like the Superintendent of Police should be able to assign the tasks.
 
 List of tools used:
-- AndroidStudio version 3.5.2 (open source)
-- FireBase version 7.7.0 (commercial)
+- Android Studio version 3.5.2
+- Firebase version 7.7.0
 
 ### Execution Procedure
-- Install AndroidStudio in a desktop/laptop with the appropriate settings (default settings form our working environment).
+- Install Android Studio in a desktop/laptop with the appropriate settings (default settings form our working environment).
 - After installing, connect an android phone to the working device and run the application source code on the AndroidStudio IDE. 
 
 ### Design diagrams
